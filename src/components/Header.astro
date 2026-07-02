@@ -30,7 +30,7 @@ const isActive = (href: string) =>
           </li>
         ))}
       </ul>
-      <a href={site.donate} class="btn btn--primary nav-cta" target="_blank" rel="noopener">Podpořit nás</a>
+      <a href={site.donate} class="btn btn--primary nav-cta" target="_blank" rel="noopener">Podpořte nás</a>
     </nav>
   </div>
 </header>
@@ -76,7 +76,10 @@ const isActive = (href: string) =>
   .submenu li { display: block; }
   .submenu a { display: block; padding: 0.5rem 1.1rem; }
 
-  .nav-cta { font-size: 0.95rem; padding: 0.6rem 1.2rem; }
+  .nav a.nav-cta {
+    font-size: 0.95rem; padding: 0.65rem 1.8rem; white-space: nowrap; color: #fff;
+  }
+  .nav a.nav-cta:hover { color: #fff; }
 
   .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
   .nav-toggle span {

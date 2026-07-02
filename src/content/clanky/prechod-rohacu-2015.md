@@ -1,0 +1,10 @@
+---
+title: "Přechod Roháčů 2015"
+date: 2015-09-11
+category: "zazitky"
+cover: "https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000243-91add91adf/700/Tatry.jpeg?ph=842c9edb4e"
+source: "https://www.vamos66.cz/l/prechod-rohacu-2015/"
+perex: "Spousty dvoutisícovek, řetězy natažené po strmých skalkách, adrenalinové přelezy místy exponovaných partií, ale především nádherná příroda západní části Vysokých Tater."
+---
+
+Spousty dvoutisícovek, řetězy natažené po strmých skalkách, adrenalinové přelezy místy exponovaných partií, ale především nádherná příroda západní části Vysokých Tater.

@@ -1,0 +1,10 @@
+---
+title: "PYRENEJE 2016 – motorcyklem pěkně daleko"
+date: 2016-07-24
+category: "zazitky"
+cover: "https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000251-73bd973bdb/700/Pyreneje.jpeg?ph=842c9edb4e"
+source: "https://www.vamos66.cz/l/pyreneje-2016/"
+perex: "Pyreneje na motorkách. Přepravit se cca 1500 km někam do středu Francie a dál do Španělska po ose. Pyreneje – oceán… no neříkejte mi, že to nebude zážitek."
+---
+
+Pyreneje na motorkách. Přepravit se cca 1500 km někam do středu Francie a dál do Španělska po ose. Pyreneje – oceán… no neříkejte mi, že to nebude zážitek.

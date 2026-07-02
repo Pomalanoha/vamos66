@@ -1,0 +1,34 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  eyebrow?: string;
+  image?: string;
+}
+const { title, subtitle, eyebrow, image } = Astro.props;
+---
+<section class={`pagehero ${image ? 'pagehero--image' : ''}`}>
+  {image && <img class="pagehero-bg" src={image} alt="" />}
+  <div class="container pagehero-inner">
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h1>{title}</h1>
+    {subtitle && <p class="lead">{subtitle}</p>}
+  </div>
+</section>
+
+<style>
+  .pagehero { position: relative; background: var(--color-green-light); padding-block: clamp(3rem, 7vw, 5rem); overflow: hidden; }
+  .pagehero-inner { position: relative; z-index: 2; max-width: 70ch; }
+  .pagehero--image { background: var(--color-bg-deep); }
+  .pagehero--image .pagehero-inner h1,
+  .pagehero--image .pagehero-inner .lead { color: #fff; }
+  .pagehero--image .lead { color: rgba(255,255,255,0.9); }
+  .pagehero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 1; opacity: 0.38;
+  }
+  .pagehero--image::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(120deg, rgba(12,39,34,0.85), rgba(12,39,34,0.45));
+  }
+</style>

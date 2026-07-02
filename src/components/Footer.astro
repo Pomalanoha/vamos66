@@ -1,0 +1,63 @@
+---
+import { site, nav } from '../config/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">VAMOS<span>66</span></div>
+      <p class="footer-slogan">{site.slogan}</p>
+      <p class="footer-mission">
+        Pomáháme bývalým legendám z oblasti sportu, kultury i veřejného života,
+        pokud se ocitli v obtížné sociální či zdravotní situaci.
+      </p>
+      <a href={site.social.facebook} class="footer-fb" target="_blank" rel="noopener">Sledujte nás na Facebooku →</a>
+    </div>
+
+    <div>
+      <h4>Rozcestník</h4>
+      <ul class="footer-nav">
+        {nav.map((i) => (<li><a href={i.href}>{i.label}</a></li>))}
+      </ul>
+    </div>
+
+    <div>
+      <h4>Spolek VAMOS 66, z. s.</h4>
+      <address>
+        {site.contact.address}<br />
+        IČO: {site.contact.ico}<br />
+        <a href={`tel:${site.contact.phoneHref}`}>{site.contact.phone}</a><br />
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </address>
+      <a href={site.donate} class="btn btn--primary footer-cta" target="_blank" rel="noopener">Podpořit spolek</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      © {year} {site.legalName} · Spolek na podporu sportovních legend
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--color-bg-deep); color: rgba(255,255,255,0.82); }
+  .footer-grid {
+    display: grid; gap: 2.5rem; padding-block: clamp(3rem, 6vw, 4.5rem);
+  }
+  @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1.2fr; } }
+  .footer-brand { font-size: 1.7rem; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+  .footer-brand span { color: var(--color-orange); }
+  .footer-slogan { color: #fff; font-weight: 600; margin: 0.3rem 0 1rem; }
+  .footer-mission { font-size: 0.98rem; max-width: 38ch; }
+  .footer-fb { color: #ffd9b0; font-weight: 600; }
+  .site-footer h4 { color: #fff; font-size: 1.05rem; margin-bottom: 1rem; }
+  .footer-nav { list-style: none; margin: 0; padding: 0; }
+  .footer-nav li { margin-bottom: 0.5rem; }
+  .footer-nav a, address a { color: rgba(255,255,255,0.82); text-decoration: none; }
+  .footer-nav a:hover, address a:hover { color: #fff; }
+  address { font-style: normal; line-height: 1.9; margin-bottom: 1.2rem; }
+  .footer-cta { font-size: 0.95rem; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); }
+  .footer-bottom .container { padding-block: 1.4rem; font-size: 0.88rem; color: rgba(255,255,255,0.6); }
+</style>

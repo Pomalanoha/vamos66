@@ -1,0 +1,16 @@
+{
+  "name": "vamos66",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Web spolku VAMOS 66 — Astro prototyp",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  }
+}

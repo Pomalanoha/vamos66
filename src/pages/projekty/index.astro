@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projekty = (await getCollection('projekty')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Projekty" description="Veškeré aktuální projekty spolku z oblasti sportu, kultury i sociální oblasti.">
+  <PageHero
+    eyebrow="Co děláme"
+    title="Projekty"
+    subtitle="Klíčem k životu je neustále přijímat výzvy. Sport, kultura i sociální oblast – sedm cest, kterými přinášíme radost a pomoc."
+    image="https://duyn491kcolsw.cloudfront.net/files/0l/0ln/700/0lnwts.jpg?ph=842c9edb4e"
+  />
+
+  <section class="section">
+    <div class="container">
+      <p class="lead intro mx-auto">
+        Spolek VAMOS 66 se kromě hlavní sportovní činnosti orientuje i na oblast kulturně-společenskou
+        a sociální. Velký vliv na tuto změnu měla i dlouhá covidová doba. Jak se nám daří plnit naše
+        cíle, můžete vidět právě zde.
+      </p>
+      <div class="grid grid--3">
+        {projekty.map((p) => (
+          <ProjectCard
+            title={p.data.title}
+            perex={p.data.perex}
+            cover={p.data.cover}
+            icon={p.data.icon}
+            href={`/projekty/${p.slug}/`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro { text-align: center; max-width: 70ch; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+</style>

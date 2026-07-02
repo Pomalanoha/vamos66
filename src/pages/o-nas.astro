@@ -1,0 +1,199 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const clenove = (await getCollection('rada')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(
+  clenove.map(async (m) => ({ data: m.data, Content: (await m.render()).Content }))
+);
+---
+<BaseLayout title="O nás" description="Kdo jsme, jaká je naše historie a kdo stojí v radě spolku VAMOS 66 — vše na jednom místě.">
+  <PageHero
+    eyebrow="Kdo jsme"
+    title="O spolku VAMOS 66"
+    subtitle="Všichni máme podobné sportovní zkušenosti a vyznáváme hodnoty fair play – nejen ve sportu, ale především v každodenním životě."
+    image="https://duyn491kcolsw.cloudfront.net/files/0a/0az/700/0az4au.jpg?ph=842c9edb4e"
+  />
+
+  <nav class="subnav" aria-label="Obsah stránky O nás">
+    <div class="container subnav-inner">
+      <a href="#kdo-jsme">Kdo jsme</a>
+      <a href="#rada-spolku">Rada spolku</a>
+      <a href="#historie">Historie</a>
+    </div>
+  </nav>
+
+  <section id="kdo-jsme" class="section">
+    <div class="container two-col">
+      <div class="prose">
+        <blockquote>
+          Jsou přesvědčeni, že fair play patří do všech oblastí života, a právě
+          na tomto sportovním principu je založeno jejich přátelství.
+        </blockquote>
+        <p>
+          Spolek VAMOS 66 pomáhá legendám z oblasti sportu a kultury, organizuje výlety,
+          sportovní a kulturní akce, setkání a besedy. Kdo přesně za spolkem stojí a jak to
+          celé začalo, se dočtete níže — v radě spolku a v naší historii.
+        </p>
+      </div>
+
+      <aside class="side">
+        <div class="side-card">
+          <h3>Více o spolku</h3>
+          <ul class="side-links">
+            <li><a href="#rada-spolku">Rada spolku →</a></li>
+            <li><a href="#historie">Historie spolku →</a></li>
+            <li><a href="/projekty/">Naše projekty →</a></li>
+            <li><a href="/kontakt/">Kontakt →</a></li>
+          </ul>
+        </div>
+        <div class="side-card side-card--green">
+          <h3>Přidejte se k nám</h3>
+          <p>Máte chuť pomáhat a tvořit nové věci? Každá pomoc je vítaná.</p>
+          <a href="/kontakt/" class="btn btn--light">Ozvěte se nám</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="rada-spolku" class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Vedení spolku</span>
+        <h2>Rada spolku</h2>
+        <p class="lead">Lidé, kteří stojí za spolkem VAMOS 66 a dávají mu směr i energii.</p>
+      </div>
+      <div class="members">
+        {rendered.map(({ data, Content }) => (
+          <article class="member">
+            <div class="member-photo">
+              {data.photo
+                ? <img src={data.photo} alt={data.name} loading="lazy" />
+                : <div class="member-ph">{data.name.split(' ').map((n) => n[0]).join('')}</div>}
+            </div>
+            <div class="member-body">
+              <h3>{data.name}</h3>
+              <span class="member-role">{data.role}</span>
+              <div class="member-bio"><Content /></div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="historie" class="section">
+    <div class="container">
+      <div class="section-head text-center mx-auto">
+        <span class="eyebrow">Náš příběh</span>
+        <h2>Jak to vlastně začalo</h2>
+        <p class="lead mx-auto">Od spolku pro zážitky až k podpoře sportovních legend. Cesta dlouhá deset let.</p>
+      </div>
+
+      <div class="prose mx-auto">
+        <p>
+          Vše začalo v roce 2015. S kamarádem Jardou Zajptem jsme založili spolek
+          <strong>VAMOS 66 – spolek pro zážitky</strong>. Při plánování cesty do Španělska
+          a Francie jsme narazili na výraz VAMOS, který v překladu znamená
+          <em>„pojď(me), makej, do toho"</em>. A to jsou výrazy, které se ve sportu hojně
+          používají a jsou nám blízké. A bylo rozhodnuto.
+        </p>
+        <p>
+          V prvních letech, de facto až do Covidu, byly akce spolku zaměřené především na
+          zážitky. Hodně jsme cestovali po vlastech českých i po cizině, jezdili na motorkách,
+          kolobrndách či na kolech, bruslili na ledě i na kolečkách, vylezli nějaké ty kopečky,
+          slezli několik ferrat, zahráli squash a ricochet.
+        </p>
+
+        <h3>Covid a nové myšlenky</h3>
+        <p>
+          Pak přišel Covid, který nám do všeho hodil vidle. Plno akcí jsme museli zrušit.
+          V této době vznikla nová myšlenka – vytvořit pro obyvatele Újezdu nad Lesy informační
+          portál, kde by se shromažďovaly informace o pořádaných akcích. A tak vznikl projekt
+          <strong>iRadio21</strong>. Po dvou letech jsme jej ale ukončili.
+        </p>
+
+        <h3>Festival a hudba</h3>
+        <p>
+          Dalším velkým milníkem byla myšlenka uspořádat hudební festival. Otcem myšlenky byl
+          především Jarda, který v roce 2023 našel parťáka na spolupořadatelství festivalu
+          <strong>ROCK &amp; ALL FEST</strong> v Újezdu nad Lesy. V dubnu 2024 Jarda v Rock Café
+          pokřtil svoji druhou desku <strong>Ayrobus 66</strong>.
+        </p>
+
+        <h3>Nové směřování – setkávání legend</h3>
+        <p>
+          Při přípravě velkých sportovních akcí jsem si uvědomil, že náš spolek dělal podobné
+          akce už dříve pod projektem <strong>„Setkávání legend"</strong>. Udělali jsme ve spolku
+          drobné změny, přijali nové členy, vyjasnili si nové směřování a okamžitě zahájili
+          přípravy na akci <strong>„Setkání olympijských vítězů"</strong>.
+        </p>
+        <p>
+          Cyklistickou terminologií – <strong>VAMOS 66 šlape dál</strong>. Držte nám palce
+          a sledujte naše aktivity.
+        </p>
+
+        <div class="cta-box">
+          <h3>Chcete se i Vy podílet na našem pokračujícím příběhu?</h3>
+          <p>
+            Přidat se k nám může kdokoliv. Máme stále chuť vytvářet nové věci a pomáhat druhým.
+            Rádi přivítáme každého nového člena.
+          </p>
+          <a href="/kontakt/" class="btn btn--primary">Kontaktujte nás</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .subnav {
+    position: sticky; top: 76px; z-index: 20;
+    background: #fff; border-bottom: 1px solid var(--color-line);
+  }
+  .subnav-inner { display: flex; gap: 1.6rem; padding-block: 0.9rem; flex-wrap: wrap; }
+  .subnav a { font-weight: 600; font-size: 0.95rem; color: var(--color-muted); text-decoration: none; }
+  .subnav a:hover { color: var(--color-green); }
+
+  .two-col { display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
+  @media (min-width: 900px) { .two-col { grid-template-columns: 1.7fr 1fr; align-items: start; } }
+  .side { display: grid; gap: 1.4rem; position: sticky; top: 140px; }
+  .side-card { background: var(--color-bg-soft); border: 1px solid var(--color-line); border-radius: var(--radius); padding: 1.6rem; }
+  .side-card h3 { margin-bottom: 0.9rem; }
+  .side-links { list-style: none; margin: 0; padding: 0; }
+  .side-links li { margin-bottom: 0.6rem; }
+  .side-links a { font-weight: 600; }
+  .side-card--green { background: var(--color-green); color: #fff; }
+  .side-card--green h3 { color: #fff; }
+  .side-card--green p { color: rgba(255,255,255,0.9); }
+
+  .members { display: grid; gap: clamp(1.5rem, 4vw, 2.5rem); }
+  @media (min-width: 720px) { .members { grid-template-columns: repeat(2, 1fr); } }
+  .member {
+    display: flex; gap: 1.3rem; background: #fff; border: 1px solid var(--color-line);
+    border-radius: var(--radius); padding: 1.4rem; align-items: flex-start;
+  }
+  .member-photo { flex-shrink: 0; width: 110px; }
+  .member-photo img, .member-ph {
+    width: 110px; height: 110px; border-radius: 16px; object-fit: cover;
+  }
+  .member-ph {
+    display: grid; place-items: center; background: var(--color-green);
+    color: #fff; font-size: 1.6rem; font-weight: 800;
+  }
+  .member-role {
+    display: inline-block; color: var(--color-orange); font-weight: 700;
+    font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.6rem;
+  }
+  .member-body h3 { margin-bottom: 0.2rem; }
+  .member-bio { color: var(--color-muted); font-size: 0.97rem; }
+  .member-bio :global(p) { margin: 0; }
+
+  .cta-box {
+    margin-top: 2.5rem; padding: 2rem; border-radius: var(--radius);
+    background: var(--color-green-light); border: 1px solid #cfe6df;
+  }
+  .cta-box h3 { color: var(--color-green-dark); }
+  .cta-box p { color: var(--color-muted); }
+</style>

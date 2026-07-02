@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+const c = site.contact;
+---
+<BaseLayout title="Kontakt" description="Kontaktní údaje spolku VAMOS 66 včetně e-mailu, telefonu a bankovního spojení.">
+  <PageHero
+    eyebrow="Spojte se s námi"
+    title="Potřebujete se s námi spojit?"
+    subtitle="Pište, telefonujte, posílejte poštovní holuby. Každá pomoc i nápad jsou vítané."
+  />
+
+  <section class="section">
+    <div class="container kontakt-grid">
+      <div>
+        <div class="kbox">
+          <span class="kicon"><Icon name="phone" /></span>
+          <div>
+            <span class="klabel">Telefon</span>
+            <a class="kvalue" href={`tel:${c.phoneHref}`}>{c.phone}</a>
+          </div>
+        </div>
+        <div class="kbox">
+          <span class="kicon"><Icon name="mail" /></span>
+          <div>
+            <span class="klabel">E-mail</span>
+            <a class="kvalue" href={`mailto:${c.email}`}>{c.email}</a>
+          </div>
+        </div>
+        <div class="kbox">
+          <span class="kicon"><Icon name="pin" /></span>
+          <div>
+            <span class="klabel">Sídlo</span>
+            <span class="kvalue">{c.address}</span>
+          </div>
+        </div>
+
+        <div class="udaje">
+          <h3>Údaje spolku</h3>
+          <dl>
+            <div><dt>Název</dt><dd>{site.legalName}</dd></div>
+            <div><dt>IČO</dt><dd>{c.ico}</dd></div>
+            <div><dt>Spisová značka</dt><dd>{c.spisovaZnacka}</dd></div>
+            <div><dt>Datová schránka</dt><dd>{c.dataSchranka}</dd></div>
+            <div><dt>Bankovní účet</dt><dd>{c.ucet}</dd></div>
+            <div><dt>Transparentní účet</dt><dd><a href={c.transparentniUcetUrl} target="_blank" rel="noopener">{c.transparentniUcet}</a></dd></div>
+          </dl>
+          <a href={site.social.facebook} class="btn btn--ghost" target="_blank" rel="noopener">Sledujte nás na Facebooku →</a>
+        </div>
+      </div>
+
+      <div>
+        <form class="form" onsubmit="event.preventDefault(); this.querySelector('.form-note').hidden = false;">
+          <h3>Napište nám</h3>
+          <label>Jméno a příjmení
+            <input type="text" name="name" required />
+          </label>
+          <label>E-mail
+            <input type="email" name="email" required />
+          </label>
+          <label>Zpráva
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary">Odeslat</button>
+          <p class="form-note" hidden>
+            Děkujeme! Formulář je v této ukázce zatím nefunkční – odesílání zpráv napojíme při spuštění webu.
+          </p>
+        </form>
+
+        <div class="donate-card">
+          <h3>Podpořte spolek</h3>
+          <p>Přispět můžete přes platformu Darujme.cz nebo přímo na transparentní účet.</p>
+          <a href={site.donate} class="btn btn--green" target="_blank" rel="noopener">Darovat na Darujme.cz</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .kontakt-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
+  @media (min-width: 880px) { .kontakt-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .kbox { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.2rem; }
+  .kicon { display: grid; place-items: center; width: 50px; height: 50px; flex-shrink: 0;
+    background: var(--color-green-light); color: var(--color-green); border-radius: 14px; }
+  .klabel { display: block; font-size: 0.8rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .kvalue { font-size: 1.15rem; font-weight: 700; color: var(--color-ink); text-decoration: none; }
+  a.kvalue:hover { color: var(--color-green); }
+
+  .udaje { margin-top: 2rem; padding: 1.6rem; background: var(--color-bg-soft); border: 1px solid var(--color-line); border-radius: var(--radius); }
+  .udaje h3 { margin-bottom: 1rem; }
+  .udaje dl { margin: 0 0 1.2rem; }
+  .udaje dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--color-line); }
+  .udaje dt { color: var(--color-muted); }
+  .udaje dd { margin: 0; font-weight: 600; text-align: right; }
+
+  .form { background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius); padding: 1.8rem; box-shadow: var(--shadow); }
+  .form h3 { margin-bottom: 1.2rem; }
+  .form label { display: block; font-weight: 600; margin-bottom: 1rem; }
+  .form input, .form textarea {
+    display: block; width: 100%; margin-top: 0.4rem; padding: 0.7rem 0.9rem;
+    border: 1px solid var(--color-line); border-radius: var(--radius-sm); font: inherit; font-weight: 400;
+  }
+  .form input:focus, .form textarea:focus { outline: 2px solid var(--color-green); border-color: var(--color-green); }
+  .form-note { margin-top: 1rem; padding: 0.9rem 1.1rem; background: var(--color-green-light); border-radius: var(--radius-sm); color: var(--color-green-dark); font-size: 0.95rem; }
+
+  .donate-card { margin-top: 1.6rem; padding: 1.8rem; background: var(--color-green-light); border-radius: var(--radius); }
+  .donate-card h3 { margin-bottom: 0.6rem; }
+  .donate-card p { color: var(--color-muted); }
+</style>

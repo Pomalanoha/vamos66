@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../config/site';
+
+export async function getStaticPaths() {
+  const clanky = await getCollection('clanky');
+  return clanky.map((c) => ({ params: { slug: c.slug }, props: { entry: c } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, date, cover, category, source } = entry.data;
+const dateStr = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+
+const projektTitle: Record<string, string> = Object.fromEntries(
+  (await getCollection('projekty')).map((p) => [p.slug, p.data.title])
+);
+const tag = projektTitle[category] ?? 'Aktuality';
+const projektHref = projektTitle[category] ? `/projekty/${category}/` : '/aktuality/';
+---
+<BaseLayout title={title} description={entry.data.perex}>
+  <article class="article">
+    <header class="article-head">
+      <div class="container article-head-inner">
+        <a href={projektHref} class="article-tag">{tag}</a>
+        <h1>{title}</h1>
+        <time datetime={date.toISOString()}>{dateStr}</time>
+      </div>
+    </header>
+
+    {cover && (
+      <div class="container">
+        <img class="article-cover" src={cover} alt={title} />
+      </div>
+    )}
+
+    <div class="container">
+      <div class="prose mx-auto article-body">
+        <Content />
+
+        <div class="article-note">
+          <p>
+            <strong>Ukázkový obsah.</strong> Toto je náhled struktury článku v novém webu.
+            Plné znění tohoto článku najdete zatím na původním webu.
+          </p>
+          {source && <a class="btn btn--ghost" href={source} target="_blank" rel="noopener">Otevřít původní článek →</a>}
+        </div>
+
+        <p class="article-back"><a href="/aktuality/">← Zpět na všechny aktuality</a></p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-head { background: var(--color-green-light); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+  .article-head-inner { max-width: 75ch; margin-inline: auto; }
+  .article-tag {
+    display: inline-block; background: var(--color-orange); color: #fff;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1rem; text-decoration: none;
+  }
+  .article-head h1 { margin-bottom: 0.6rem; }
+  .article-head time { color: var(--color-muted); font-weight: 600; }
+  .article-cover {
+    width: 100%; max-width: 900px; margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
+    border-radius: var(--radius); aspect-ratio: 16/9; object-fit: cover; box-shadow: var(--shadow);
+  }
+  .article-body { padding-block: clamp(2rem, 5vw, 3rem); }
+  .article-note {
+    margin: 2.5rem 0 1.5rem; padding: 1.4rem 1.6rem;
+    background: var(--color-bg-soft); border: 1px dashed var(--color-line); border-radius: var(--radius);
+  }
+  .article-note p { margin-bottom: 1rem; color: var(--color-muted); }
+  .article-back { margin-top: 1.5rem; }
+  .article-back a { font-weight: 700; }
+</style>

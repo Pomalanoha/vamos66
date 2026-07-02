@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const featured = (await getCollection('partneri'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const rendered = await Promise.all(
+  featured.map(async (p) => ({ data: p.data, Content: (await p.render()).Content }))
+);
+
+const dalsi = [
+  { name: 'Obec Kyšice', url: 'https://www.kysice.eu/' },
+  { name: 'MČ Praha 21', url: 'https://praha21.cz/' },
+  { name: 'Stravování Hrbek', url: 'https://stravovanihrbek.websnadno.cz/' },
+  { name: 'Aquarius IS', url: 'http://www.aquarius-is.cz/' },
+  { name: 'FyzioFit', url: 'https://fyziofit.eu/' },
+  { name: 'Veselé stopy', url: 'https://veselestopy.cz/' },
+  { name: 'Förch', url: 'https://www.foerch.cz/' },
+];
+---
+<BaseLayout title="Partneři" description="Spolupracující firmy a partneři spolku, spřátelené firmy a podporovatelé.">
+  <PageHero
+    eyebrow="Děkujeme"
+    title="VAMOS 66 spolupracuje"
+    subtitle="Za podporu děkujeme všem partnerům, kteří nám pomáhají naplňovat naše poslání."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="partners">
+        {rendered.map(({ data, Content }) => (
+          <article class="partner">
+            <h3>
+              {data.url
+                ? <a href={data.url} target="_blank" rel="noopener">{data.name}</a>
+                : data.name}
+            </h3>
+            <div class="partner-text"><Content /></div>
+            {data.url && <a class="partner-link" href={data.url} target="_blank" rel="noopener">Navštívit web →</a>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head text-center mx-auto">
+        <span class="eyebrow">A další</span>
+        <h2>Spřátelené firmy a podporovatelé</h2>
+      </div>
+      <ul class="chips">
+        {dalsi.map((d) => (
+          <li><a href={d.url} target="_blank" rel="noopener">{d.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .partners { display: grid; gap: clamp(1.4rem, 3vw, 2rem); }
+  @media (min-width: 720px) { .partners { grid-template-columns: repeat(2, 1fr); } }
+  .partner {
+    background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius);
+    padding: 1.6rem 1.7rem; border-left: 5px solid var(--color-orange);
+  }
+  .partner h3 { margin-bottom: 0.6rem; }
+  .partner h3 a { color: var(--color-ink); text-decoration: none; }
+  .partner h3 a:hover { color: var(--color-green); }
+  .partner-text { color: var(--color-muted); font-size: 0.97rem; }
+  .partner-text :global(p) { margin: 0 0 0.8rem; }
+  .partner-link { font-weight: 700; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+  .chips a {
+    display: inline-block; background: #fff; border: 1px solid var(--color-line);
+    border-radius: 999px; padding: 0.6rem 1.2rem; font-weight: 600; color: var(--color-ink);
+    text-decoration: none; transition: all 0.15s ease;
+  }
+  .chips a:hover { border-color: var(--color-green); color: var(--color-green); transform: translateY(-2px); }
+</style>

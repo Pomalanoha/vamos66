@@ -1,0 +1,40 @@
+fragment ProjektyParts on Projekty {
+  __typename
+  title
+  order
+  perex
+  cover
+  icon
+  showOnHome
+  body
+}
+
+fragment ClankyParts on Clanky {
+  __typename
+  title
+  date
+  category
+  perex
+  cover
+  source
+  body
+}
+
+fragment RadaParts on Rada {
+  __typename
+  name
+  role
+  order
+  photo
+  body
+}
+
+fragment PartneriParts on Partneri {
+  __typename
+  name
+  order
+  url
+  logo
+  featured
+  body
+}

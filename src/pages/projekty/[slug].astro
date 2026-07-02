@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import ImageWrap from '../../components/ImageWrap.astro';
 
 export async function getStaticPaths() {
   const projekty = await getCollection('projekty');
@@ -27,7 +28,7 @@ const clanky = (await getCollection('clanky'))
   <section class="section">
     <div class="container two-col">
       <div class="prose">
-        <Content />
+        <Content components={{ imageWrap: ImageWrap }} />
       </div>
       <aside class="side">
         <div class="side-card side-card--green">

@@ -4,13 +4,19 @@
   "version": "0.1.0",
   "description": "Web spolku VAMOS 66 — Astro prototyp",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "dev": "tinacms dev -c \"astro dev\"",
+    "dev:plain": "astro dev",
+    "start": "tinacms dev -c \"astro dev\"",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.18"
+    "astro": "^4.16.18",
+    "@astrojs/mdx": "^3.1.8",
+    "tinacms": "^2.5.1"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^1.7.1"
   }
 }

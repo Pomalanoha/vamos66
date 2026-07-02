@@ -1,0 +1,59 @@
+---
+// Blok "Obrázek s obtékáním" — vkládaný editorem v Tina CMS přímo do textu
+// článků a projektů. Obrázek plave vlevo/vpravo/na střed a text ho obtéká.
+interface Props {
+  image: string;
+  alt?: string;
+  align?: 'left' | 'right' | 'center';
+  caption?: string;
+}
+const { image, alt = '', align = 'right', caption } = Astro.props;
+---
+<figure class={`img-wrap img-wrap--${align}`}>
+  <img src={image} alt={alt} loading="lazy" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .img-wrap {
+    margin: 0.3rem 0 1.2rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .img-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+  .img-wrap figcaption {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    padding: 0.5rem 0.1rem 0;
+  }
+
+  /* Obtékání textem — jen od tabletové šířky výš, na mobilu obrázek zůstává na celou šířku */
+  @media (min-width: 640px) {
+    .img-wrap--left,
+    .img-wrap--right {
+      max-width: 340px;
+      shape-outside: margin-box;
+    }
+    .img-wrap--left {
+      float: left;
+      margin-right: 1.6rem;
+    }
+    .img-wrap--right {
+      float: right;
+      margin-left: 1.6rem;
+    }
+  }
+
+  .img-wrap--center {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+  }
+</style>

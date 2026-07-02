@@ -1,23 +1,52 @@
 /**
- * TinaCMS konfigurace (připraveno pro budoucí napojení).
+ * TinaCMS konfigurace.
  *
- * TinaCMS je zdarma (self-hosted i v cloud free tieru) a ukládá obsah přímo
- * do Markdown souborů v tomto projektu (složka src/content) – stejných, které
- * web už používá. Editor obsahu tak upravuje web přes přehledné formuláře,
- * aniž by sahal do kódu.
+ * TinaCMS je zdarma (self-hosted i v cloud free tieru pro 2 editory) a ukládá
+ * obsah přímo do Markdown/MDX souborů v tomto projektu (složka src/content) –
+ * stejných, které web už používá. Editor obsahu tak upravuje web přes
+ * přehledné formuláře na /admin, aniž by sahal do kódu.
  *
- * Jak ho zapnout (až budete chtít):
- *   1) npm install tinacms @tinacms/cli
- *   2) do package.json přidat skripty:
- *        "dev": "tinacms dev -c \"astro dev\"",
- *        "build": "tinacms build && astro build"
- *   3) na https://app.tina.io založit projekt (zdarma) a doplnit
- *        clientId a token (přes proměnné prostředí).
- *   4) npm run dev  →  administrace poběží na /admin
+ * Jde o základní (ne "vizuální/kontextovní") režim editace — žádné klikání
+ * přímo na živou stránku, žádný SSR adaptér. Web tak zůstává čistě statický
+ * a nasazuje se stejně na Vercel i Cloudflare jako doteď.
+ *
+ * Kolekce `clanky` a `projekty` používají formát `mdx`, aby šlo do textu
+ * vkládat vlastní blok "Obrázek s obtékáním" (viz šablona `imageWrap` níže
+ * a komponenta src/components/ImageWrap.astro).
+ *
+ * Jak ho zapnout:
+ *   1) npm install (nainstaluje tinacms, @tinacms/cli, @astrojs/mdx)
+ *   2) na https://app.tina.io založit projekt (zdarma) a doplnit
+ *        TINA_CLIENT_ID a TINA_TOKEN (přes proměnné prostředí / .env)
+ *   3) npm run dev  →  administrace poběží na /admin/index.html
  */
-import { defineConfig } from 'tinacms';
+import { defineConfig, type Template } from 'tinacms';
 
 const branch = process.env.TINA_BRANCH || 'main';
+
+// Vlastní blok pro rich-text pole "Text" — editor ho vloží kamkoliv do
+// článku/projektu přes tlačítko "Insert" a obrázek pak v textu obtéká.
+// Vykresluje ho src/components/ImageWrap.astro (napojeno v [slug].astro
+// přes <Content components={{ imageWrap: ImageWrap }} />).
+const imageWrapTemplate: Template = {
+  name: 'imageWrap',
+  label: 'Obrázek s obtékáním',
+  fields: [
+    { type: 'image', name: 'image', label: 'Obrázek', required: true },
+    { type: 'string', name: 'alt', label: 'Popisek obrázku (pro čtečky a SEO)' },
+    {
+      type: 'string',
+      name: 'align',
+      label: 'Zarovnání',
+      options: [
+        { value: 'left', label: 'Vlevo (text obtéká vpravo)' },
+        { value: 'right', label: 'Vpravo (text obtéká vlevo)' },
+        { value: 'center', label: 'Na střed (bez obtékání)' },
+      ],
+    },
+    { type: 'string', name: 'caption', label: 'Titulek pod obrázkem (nepovinné)' },
+  ],
+};
 
 export default defineConfig({
   branch,
@@ -31,7 +60,7 @@ export default defineConfig({
         name: 'projekty',
         label: 'Projekty',
         path: 'src/content/projekty',
-        format: 'md',
+        format: 'mdx',
         fields: [
           { type: 'string', name: 'title', label: 'Název', isTitle: true, required: true },
           { type: 'number', name: 'order', label: 'Pořadí' },
@@ -39,14 +68,14 @@ export default defineConfig({
           { type: 'image', name: 'cover', label: 'Úvodní obrázek' },
           { type: 'string', name: 'icon', label: 'Ikona (medal, users, rocket, compass, trophy, music, mountain, star)' },
           { type: 'boolean', name: 'showOnHome', label: 'Zobrazit na úvodní stránce' },
-          { type: 'rich-text', name: 'body', label: 'Text', isBody: true },
+          { type: 'rich-text', name: 'body', label: 'Text', isBody: true, templates: [imageWrapTemplate] },
         ],
       },
       {
         name: 'clanky',
         label: 'Články / Aktuality',
         path: 'src/content/clanky',
-        format: 'md',
+        format: 'mdx',
         fields: [
           { type: 'string', name: 'title', label: 'Titulek', isTitle: true, required: true },
           { type: 'datetime', name: 'date', label: 'Datum', required: true },
@@ -54,7 +83,7 @@ export default defineConfig({
           { type: 'string', name: 'perex', label: 'Perex', ui: { component: 'textarea' } },
           { type: 'image', name: 'cover', label: 'Obrázek' },
           { type: 'string', name: 'source', label: 'Odkaz na zdroj' },
-          { type: 'rich-text', name: 'body', label: 'Text', isBody: true },
+          { type: 'rich-text', name: 'body', label: 'Text', isBody: true, templates: [imageWrapTemplate] },
         ],
       },
       {

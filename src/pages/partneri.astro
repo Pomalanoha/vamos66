@@ -12,13 +12,13 @@ const rendered = await Promise.all(
 );
 
 const dalsi = [
-  { name: 'Obec Kyšice', url: 'https://www.kysice.eu/' },
-  { name: 'MČ Praha 21', url: 'https://praha21.cz/' },
-  { name: 'Stravování Hrbek', url: 'https://stravovanihrbek.websnadno.cz/' },
-  { name: 'Aquarius IS', url: 'http://www.aquarius-is.cz/' },
-  { name: 'FyzioFit', url: 'https://fyziofit.eu/' },
-  { name: 'Veselé stopy', url: 'https://veselestopy.cz/' },
-  { name: 'Förch', url: 'https://www.foerch.cz/' },
+  { name: 'Obec Kyšice', url: 'https://www.kysice.eu/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000760-e5672e5674/crest.png?ph=842c9edb4e' },
+  { name: 'MČ Praha 21', url: 'https://praha21.cz/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000763-d6331d633e/1544368265576_p21-znak-cerna-h50n.png?ph=842c9edb4e' },
+  { name: 'Stravování Hrbek', url: 'https://stravovanihrbek.websnadno.cz/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000832-1e24b1e24d/kucha%C5%99%20logo%20%C4%8Derven%C3%BD.jpeg?ph=842c9edb4e' },
+  { name: 'Aquarius IS', url: 'http://www.aquarius-is.cz/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000767-5e2af5e2b1/sta%C5%BEen%C3%BD%20soubor.jpeg?ph=842c9edb4e' },
+  { name: 'FyzioFit', url: 'https://fyziofit.eu/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000754-1646a1646d/Fyziofit.png?ph=842c9edb4e' },
+  { name: 'Veselé stopy', url: 'https://veselestopy.cz/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000769-939d6939d8/301571725_405009025072178_3242040232220397337_n.png?ph=842c9edb4e' },
+  { name: 'Förch', url: 'https://www.foerch.cz/', logo: 'https://842c9edb4e.clvaw-cdnwnd.com/a11f719e7b2bf16fa20a4126a384bd79/200000842-c4553c4554/FOERCH_Wort-Bildmarke_RGB%20%281%29.png?ph=842c9edb4e' },
 ];
 ---
 <BaseLayout title="Partneři" description="Spolupracující firmy a partneři spolku, spřátelené firmy a podporovatelé.">
@@ -59,7 +59,11 @@ const dalsi = [
       </div>
       <ul class="chips">
         {dalsi.map((d) => (
-          <li><a href={d.url} target="_blank" rel="noopener">{d.name}</a></li>
+          <li>
+            <a href={d.url} target="_blank" rel="noopener" title={d.name} aria-label={d.name}>
+              <img src={d.logo} alt={d.name} loading="lazy" />
+            </a>
+          </li>
         ))}
       </ul>
     </div>
@@ -83,11 +87,12 @@ const dalsi = [
   .partner-text { color: var(--color-muted); font-size: 0.97rem; }
   .partner-text :global(p) { margin: 0 0 0.8rem; }
   .partner-link { font-weight: 700; }
-  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; align-items: center; }
   .chips a {
-    display: inline-block; background: #fff; border: 1px solid var(--color-line);
-    border-radius: 999px; padding: 0.6rem 1.2rem; font-weight: 600; color: var(--color-ink);
-    text-decoration: none; transition: all 0.15s ease;
+    display: flex; align-items: center; justify-content: center;
+    height: 72px; width: 150px; background: #fff; border: 1px solid var(--color-line);
+    border-radius: var(--radius); padding: 0.9rem 1.2rem; transition: all 0.15s ease;
   }
-  .chips a:hover { border-color: var(--color-green); color: var(--color-green); transform: translateY(-2px); }
+  .chips a:hover { border-color: var(--color-green); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .chips img { max-height: 100%; max-width: 100%; object-fit: contain; }
 </style>

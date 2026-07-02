@@ -2,7 +2,7 @@
 import { defineConfig } from "tinacms";
 var branch = process.env.TINA_BRANCH || "main";
 var imageWrapTemplate = {
-  name: "imageWrap",
+  name: "ImageWrap",
   label: "Obr\xE1zek s obt\xE9k\xE1n\xEDm",
   fields: [
     { type: "image", name: "image", label: "Obr\xE1zek", required: true },

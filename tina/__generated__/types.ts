@@ -270,7 +270,7 @@ export type ProjektyBodyImageWrapFilter = {
 };
 
 export type ProjektyBodyFilter = {
-  imageWrap?: InputMaybe<ProjektyBodyImageWrapFilter>;
+  ImageWrap?: InputMaybe<ProjektyBodyImageWrapFilter>;
 };
 
 export type ProjektyFilter = {
@@ -326,7 +326,7 @@ export type ClankyBodyImageWrapFilter = {
 };
 
 export type ClankyBodyFilter = {
-  imageWrap?: InputMaybe<ClankyBodyImageWrapFilter>;
+  ImageWrap?: InputMaybe<ClankyBodyImageWrapFilter>;
 };
 
 export type ClankyFilter = {

@@ -146,7 +146,7 @@ input ProjektyBodyImageWrapFilter {
 }
 
 input ProjektyBodyFilter {
-  imageWrap: ProjektyBodyImageWrapFilter
+  ImageWrap: ProjektyBodyImageWrapFilter
 }
 
 input ProjektyFilter {
@@ -199,7 +199,7 @@ input ClankyBodyImageWrapFilter {
 }
 
 input ClankyBodyFilter {
-  imageWrap: ClankyBodyImageWrapFilter
+  ImageWrap: ClankyBodyImageWrapFilter
 }
 
 input ClankyFilter {

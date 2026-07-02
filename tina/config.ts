@@ -11,7 +11,7 @@
  * a nasazuje se stejně na Vercel i Cloudflare jako doteď.
  *
  * Kolekce `clanky` a `projekty` používají formát `mdx`, aby šlo do textu
- * vkládat vlastní blok "Obrázek s obtékáním" (viz šablona `imageWrap` níže
+ * vkládat vlastní blok "Obrázek s obtékáním" (viz šablona `ImageWrap` níže
  * a komponenta src/components/ImageWrap.astro).
  *
  * Jak ho zapnout:
@@ -27,9 +27,12 @@ const branch = process.env.TINA_BRANCH || 'main';
 // Vlastní blok pro rich-text pole "Text" — editor ho vloží kamkoliv do
 // článku/projektu přes tlačítko "Insert" a obrázek pak v textu obtéká.
 // Vykresluje ho src/components/ImageWrap.astro (napojeno v [slug].astro
-// přes <Content components={{ imageWrap: ImageWrap }} />).
+// přes <Content components={{ ImageWrap }} />). Jméno šablony je záměrně
+// s velkým počátečním písmenem — MDX takové značky bezpečně dohledává
+// přes "components" mapu (tzv. shortcode), zatímco malé počáteční písmeno
+// se v testu chovalo nespolehlivě a obrázek se nezobrazoval.
 const imageWrapTemplate: Template = {
-  name: 'imageWrap',
+  name: 'ImageWrap',
   label: 'Obrázek s obtékáním',
   fields: [
     { type: 'image', name: 'image', label: 'Obrázek', required: true },

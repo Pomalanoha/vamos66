@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, date, cover, category, source } = entry.data;
+const { title, date, cover, category } = entry.data;
 const dateStr = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
 
 const projektTitle: Record<string, string> = Object.fromEntries(
@@ -39,14 +39,6 @@ const projektHref = projektTitle[category] ? `/projekty/${category}/` : '/aktual
     <div class="container">
       <div class="prose mx-auto article-body">
         <Content components={{ imageWrap: ImageWrap }} />
-
-        <div class="article-note">
-          <p>
-            <strong>Ukázkový obsah.</strong> Toto je náhled struktury článku v novém webu.
-            Plné znění tohoto článku najdete zatím na původním webu.
-          </p>
-          {source && <a class="btn btn--ghost" href={source} target="_blank" rel="noopener">Otevřít původní článek →</a>}
-        </div>
 
         <p class="article-back"><a href="/aktuality/">← Zpět na všechny aktuality</a></p>
       </div>
